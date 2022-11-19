@@ -1,4 +1,3 @@
-package prova;
 import java.util.Scanner;
 
 public class AppElevador {
@@ -7,10 +6,11 @@ public class AppElevador {
 	
 	public static void main(String[] args) {
 
-		elevador = new Elevador(15, "Recife", 10, 100);
+		elevador = new Elevador(15, "Recife", 3, 1000);
 		mostrarElevador();
 
 		do {
+			System.out.print("Peso pessoa do embarque: ");
 			elevador.embarque(lerTeclado.nextDouble());
 			mostrarElevador();
 			
@@ -23,39 +23,34 @@ public class AppElevador {
 			break;
 		} while (elevador.getNrAtualPessoas() <= elevador.getNrMaximoPessoas());
 		
-		
-		elevador.desembarque(lerTeclado.nextDouble());
-		mostrarElevador();
-		
 		do {
+			System.out.print("Peso pessa do desembarque: ");
 			elevador.desembarque(lerTeclado.nextDouble());
 			mostrarElevador();
 			
-			if (elevador.getNrAtualPessoas() == 0) {
-				
-				System.out.println("Não tem pessoa para desembarcar");
+			if (elevador.getNrAtualPessoas() == 0) {	
+				System.out.println("Nao tem pessoa para desembarcar");	
+
 			} else {
-					continue;
+				continue;
+				
 			}
 			break;
-		} while(elevador.getNrAtualPessoas() == 0);
+
+		} while(elevador.getNrAtualPessoas() != 0);
 				
 	}
 	
 	public static void mostrarElevador() {
 		System.out.println("---------------------------");
-		System.out.println("Código                   : " + elevador.getIdElevador());
+		System.out.println("Codigo                   : " + elevador.getIdElevador());
 		System.out.println("Localidade               : " + elevador.getLocalidade());
-		System.out.println("Nº Máximo de Pessoas     : " + elevador.getNrMaximoPessoas());
-		System.out.println("Peso Máximo da Carga     : " + elevador.getPesoMaximoCarga() + "Kg");
-		System.out.println();
-		System.out.println("Nº Atual de Pessoas      : " + elevador.getNrAtualPessoas());
+		System.out.println("Nr Maximo de Pessoas     : " + elevador.getNrMaximoPessoas());
+		System.out.println("Peso Maximo da Carga     : " + elevador.getPesoMaximoCarga() + "Kg");
+		System.out.println("Nr Atual de Pessoas      : " + elevador.getNrAtualPessoas());
 		System.out.println("Peso Atual da Carga      : " + elevador.getPesoAtualCarga() + "Kg");
 		System.out.println("Valor Seguro Acumulado      : " + elevador.getValorSeguroAcumulado());
 		System.out.println("---------------------------");
-
-
-		
 	}
 	
 }

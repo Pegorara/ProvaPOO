@@ -1,6 +1,5 @@
-package prova;
-
 public class Elevador {
+
 	private int idElevador;
 	private int nrMaximoPessoas;
 	private int nrAtualPessoas;
@@ -17,9 +16,6 @@ public class Elevador {
 		this.localidade = localidade;
 		this.nrMaximoPessoas = nrMaximoPessoas;
 		this.pesoMaximoCarga = pesoMaximoCarga;
-		this.nrAtualPessoas = 0;
-		this.pesoAtualCarga = 0;
-		this.valorSeguroAcumulado = 0;
 		
 	}
 
@@ -76,9 +72,9 @@ public class Elevador {
 	public boolean embarque(double pesoPessoa) {
 		
 		if (nrAtualPessoas < nrMaximoPessoas && pesoAtualCarga < pesoMaximoCarga) {
-			
 			nrAtualPessoas++;
-			pesoAtualCarga = pesoAtualCarga + pesoPessoa;
+			pesoAtualCarga += pesoPessoa;
+			valorSeguroAcumulado += registrarSeguro();
 			return true;
 			
 		} else {
@@ -88,38 +84,27 @@ public class Elevador {
 	}
 	
 	public boolean desembarque(double pesoPessoa) {
-		
-		if (nrAtualPessoas > 0) {
-			nrAtualPessoas--;
-			pesoAtualCarga = pesoAtualCarga - pesoPessoa;
-			
-			if (pesoAtualCarga <= 0) {
-				
-				pesoAtualCarga = 0;
-			}
-			
+		if (this.nrAtualPessoas > 0) {
+			this.nrAtualPessoas--;
+			this.pesoAtualCarga-=pesoPessoa;
+			valorSeguroAcumulado -= registrarSeguro();
 			return true;
-			
-		} else {
-			
-			return false;
 		}
-
-		
+		return false;
 	}
 	
 	private double registrarSeguro() {
 		
-		if (nrAtualPessoas <= (nrMaximoPessoas / 2)) {
-			return valorSeguroAcumulado = 1.50;
+		if (this.nrAtualPessoas <= (this.nrMaximoPessoas / 2)) {
+			return 1.50 * this.nrAtualPessoas;
 			
 		} else {
-			return valorSeguroAcumulado = 2.00;
+			return 2.00 * this.nrAtualPessoas;
 		}
 		
 	}
 	
 	public void zerarValorSeguro() {
-		valorSeguroAcumulado = 0;
+		this.valorSeguroAcumulado = 0;
 	}
 }
